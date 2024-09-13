@@ -1,0 +1,23 @@
+name: .Net Github-Actions
+run-name: ${{github.actor}} is trying to learn Github-Actions for .Net
+on:
+  push:
+    branches:
+      - github-actions
+  pull_request:
+    branches:
+      - github-actions
+jobs:
+  restore:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: .Net Restore
+        run: dotnet restore
+  build:
+    needs: restore
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: .Net build
+        run: dotnet publish -c Release -o out
